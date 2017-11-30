@@ -7,11 +7,9 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <form>
-        <input type="email" />
-        <input type="password" />
-        <input type="submit" />
-      </form>
+      <div>
+        <button class="auth">Sign In</button>
+      </div>
     );
   }
 }
