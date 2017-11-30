@@ -7,7 +7,7 @@ import _ from "lodash";
 const auth = new auth0.WebAuth({
   domain: "99todos.eu.auth0.com",
   clientID: "q4Dga9L2GLtOnUu3ty96XBcRa5afYjFQ",
-  redirectUri: "http://localhost:3000/#/todos",
+  redirectUri: "http://localhost:3000",
   audience: "https://99todos.eu.auth0.com/userinfo",
   responseType: "token id_token",
   scope: "openid"
@@ -15,11 +15,11 @@ const auth = new auth0.WebAuth({
 
 export function* route({ hash, silent }) {
   try {
-    const { id } = PathMatch()("#/:id?")(hash);
+    const { id } = PathMatch()(":id?")(hash);
     if (!silent) history.pushState({}, null, hash);
     yield put({
       type: "ROUTED",
-      id: id || "top"
+      id
     });
   } catch (e) {
     console.error(e);

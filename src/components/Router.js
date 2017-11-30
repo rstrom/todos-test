@@ -31,9 +31,7 @@ const Wrap = styled.div`
 
 export default ({ id }) => {
   switch (true) {
-    case id === null:
-      return <Home />;
-    case id === "todos":
+    case id != null:
       return (
         <Wrap>
           <h1>99todos</h1>

@@ -37,8 +37,9 @@ export default class TodoItem extends React.Component {
   render() {
     const { item, index } = this.props;
     return (
-      <Item index={index}>
+      <Item index={index} className="todo">
         <input
+          className="completed"
           type="checkbox"
           checked={this.state.completed}
           onChange={e => {
