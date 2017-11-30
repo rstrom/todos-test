@@ -15,7 +15,7 @@ export default class Todos extends React.Component {
     return (
       <ul>
         {this.props.todos.map((item, i) => {
-          return <TodoItem item={item} key={i} />;
+          return <TodoItem item={item} index={i} key={i} />;
         })}
         <NewTodo />
       </ul>

@@ -1,4 +1,11 @@
 import React from "react";
+import styled from "styled-components";
+
+const Item = styled.div`
+  background: hsl(${p => (p.index % 6) * 60}, 90%, 90%);
+  margin: 0.5rem 0;
+  padding: 1rem;
+`;
 
 export default class TodoItem extends React.Component {
   constructor(props) {
@@ -28,9 +35,9 @@ export default class TodoItem extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, index } = this.props;
     return (
-      <li>
+      <Item index={index}>
         <input
           type="checkbox"
           checked={this.state.completed}
@@ -45,11 +52,10 @@ export default class TodoItem extends React.Component {
             this.setState({ title: e.target.value });
           }}
         />
-        <pre>{JSON.stringify(item)}</pre>
         {this.state.title &&
           this.state.title !== item.title && <button>save</button>}
         <button>delete</button>
-      </li>
+      </Item>
     );
   }
 }
