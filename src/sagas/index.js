@@ -2,6 +2,7 @@ import { takeEvery } from "redux-saga";
 import { put, call, all, fork } from "redux-saga/effects";
 import PathMatch from "path-match";
 import auth0 from "auth0-js";
+import _ from "lodash";
 
 const auth = new auth0.WebAuth({
   domain: "99todos.eu.auth0.com",
@@ -35,15 +36,33 @@ export function* signIn() {
 
 export function* loadTodos() {
   try {
-    const fetchTodos = yield call(
+    const getTodos = yield call(
       fetch,
       "http://todo-backend-sinatra.herokuapp.com/todos"
     );
-    const todos = yield call([fetchTodos, fetchTodos.json]);
+    const todos = yield call([getTodos, getTodos.json]);
+    const orderedTodos = _.sortBy(todos, "order");
     yield put({
       type: "LOADED_TODOS",
-      todos
+      todos: orderedTodos
     });
+  } catch (e) {
+    console.error(e, e.stack);
+  }
+}
+
+export function* updateItem({ item }) {
+  try {
+    const patchItem = yield call(
+      fetch,
+      `http://todo-backend-sinatra.herokuapp.com/todos/${item.uid}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(item)
+      }
+    );
+    const todos = yield call([patchItem, patchItem.json]);
+    yield loadTodos();
   } catch (e) {
     console.error(e, e.stack);
   }
@@ -53,4 +72,5 @@ export default function* rootSaga() {
   yield takeEvery("ROUTE", route);
   yield takeEvery("SIGN_IN", signIn);
   yield takeEvery("LOAD_TODOS", loadTodos);
+  yield takeEvery("UPDATE_ITEM", updateItem);
 }

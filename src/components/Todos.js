@@ -1,5 +1,5 @@
 import React from "react";
-import TodoItem from "./TodoItem";
+import TodoItem from "../containers/TodoItem";
 
 export default class Todos extends React.Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export default class Todos extends React.Component {
   render() {
     return (
       <ul>
-        {this.props.todos.map((id, i) => {
-          return <TodoItem id={id} key={i} />;
+        {this.props.todos.map((item, i) => {
+          return <TodoItem item={item} key={i} />;
         })}
       </ul>
     );
