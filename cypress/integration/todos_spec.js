@@ -9,7 +9,17 @@ describe("todos app", () => {
     cy.title().should("include", "auth0");
   });
 
-  it("should load todos after signing in", () => {});
+  it("should load todos after signing in", () => {
+    cy.visit("/#/todos");
 
-  it("should load an individual todo", () => {});
+    // should have multiple todos
+    cy.get(".todo");
+  });
+
+  it("should load an individual todo", () => {
+    cy.visit("/#/todos/79e07991-de8d-45b9-a031-a4ded6670504");
+
+    // should have a todo
+    cy.get(".todo");
+  });
 });

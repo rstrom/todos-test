@@ -1,6 +1,6 @@
 const initial = {
   id: null,
-  todos: {}
+  todos: []
 };
 
 export default function(state = initial, action) {
@@ -9,6 +9,11 @@ export default function(state = initial, action) {
       return {
         ...state,
         id: action.id
+      };
+    case "LOADED_TODOS":
+      return {
+        ...state,
+        todos: action.todos
       };
     default:
       return state;

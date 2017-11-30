@@ -33,7 +33,24 @@ export function* signIn() {
   }
 }
 
+export function* loadTodos() {
+  try {
+    const fetchTodos = yield call(
+      fetch,
+      "http://todo-backend-sinatra.herokuapp.com/todos"
+    );
+    const todos = yield call([fetchTodos, fetchTodos.json]);
+    yield put({
+      type: "LOADED_TODOS",
+      todos
+    });
+  } catch (e) {
+    console.error(e, e.stack);
+  }
+}
+
 export default function* rootSaga() {
   yield takeEvery("ROUTE", route);
   yield takeEvery("SIGN_IN", signIn);
+  yield takeEvery("LOAD_TODOS", loadTodos);
 }
