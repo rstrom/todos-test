@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class SignIn extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -8,7 +8,9 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <div>
-        <button class="auth">Sign In</button>
+        <button className="auth" onClick={this.props.signIn}>
+          Sign In
+        </button>
       </div>
     );
   }

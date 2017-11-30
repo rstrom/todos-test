@@ -5,7 +5,8 @@ describe("todos app", () => {
     // click sign in
     cy.get(".auth").click();
 
-    // after login should redirect to todos list
+    // should redirect to auth0
+    cy.title().should("include", "auth0");
   });
 
   it("should load todos after signing in", () => {});
