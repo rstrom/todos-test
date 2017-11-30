@@ -61,7 +61,24 @@ export function* updateItem({ item }) {
         body: JSON.stringify(item)
       }
     );
-    const todos = yield call([patchItem, patchItem.json]);
+    yield call([patchItem, patchItem.json]);
+    yield loadTodos();
+  } catch (e) {
+    console.error(e, e.stack);
+  }
+}
+
+export function* createItem({ item }) {
+  try {
+    const postItem = yield call(
+      fetch,
+      `http://todo-backend-sinatra.herokuapp.com/todos`,
+      {
+        method: "POST",
+        body: JSON.stringify(item)
+      }
+    );
+    yield call([postItem, postItem.json]);
     yield loadTodos();
   } catch (e) {
     console.error(e, e.stack);
@@ -73,4 +90,5 @@ export default function* rootSaga() {
   yield takeEvery("SIGN_IN", signIn);
   yield takeEvery("LOAD_TODOS", loadTodos);
   yield takeEvery("UPDATE_ITEM", updateItem);
+  yield takeEvery("CREATE_ITEM", createItem);
 }

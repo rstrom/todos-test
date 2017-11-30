@@ -1,5 +1,6 @@
 import React from "react";
 import TodoItem from "../containers/TodoItem";
+import NewTodo from "../containers/NewTodo";
 
 export default class Todos extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class Todos extends React.Component {
         {this.props.todos.map((item, i) => {
           return <TodoItem item={item} key={i} />;
         })}
+        <NewTodo />
       </ul>
     );
   }
