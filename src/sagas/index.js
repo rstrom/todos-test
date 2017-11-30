@@ -41,7 +41,7 @@ export function* loadTodos() {
       "http://todo-backend-sinatra.herokuapp.com/todos"
     );
     const todos = yield call([getTodos, getTodos.json]);
-    const orderedTodos = _.sortBy(todos, "order");
+    const orderedTodos = _.sortBy(todos, "uid");
     yield put({
       type: "LOADED_TODOS",
       todos: orderedTodos

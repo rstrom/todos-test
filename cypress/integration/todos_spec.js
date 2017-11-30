@@ -10,12 +10,15 @@ describe("todos app", () => {
   });
 
   it("load todos after signing in", () => {
-    cy.visit("/#/todos");
+    cy.visit("/#todos");
 
     // should have multiple todos
     cy.get(".todo");
 
     // change completed
-    cy.get(".completed").click();
+    cy
+      .get(".completed")
+      .first()
+      .click();
   });
 });
